@@ -57,3 +57,10 @@ section[id]{scroll-margin-top:100px}
 .tour-dot{width:9px;height:9px;border:1px solid #fff;border-radius:50%;padding:0;background:#ffffff70}
 .tour-dot.active{background:#fff;transform:scale(1.2)}
 @media(max-width:600px){.tour-slide-frame{height:360px}.tour-slide-overlay{padding:20px 18px 45px}.tour-slide-arrow{width:38px;height:38px}.tour-prev{left:10px}.tour-next{right:10px}.tour-slide-dots{bottom:17px;right:17px}}
+
+/* Official Purva Silversky logo and image fallback layout */
+.logo{flex-shrink:0;display:flex;align-items:center;max-width:220px}
+.brand-logo{display:block;width:clamp(150px,17vw,210px)!important;height:auto!important;max-height:58px;object-fit:contain!important;object-position:left center;background:transparent}
+.footer-logo .brand-logo{width:210px!important;max-width:100%;max-height:72px}
+@media(max-width:1000px){.brand-logo{width:170px!important;max-height:48px}.footer-logo .brand-logo{width:190px!important}}
+@media(max-width:480px){.brand-logo{width:145px!important;max-height:42px}.logo{max-width:155px}}

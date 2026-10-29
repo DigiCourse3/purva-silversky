@@ -120,3 +120,59 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
  document.querySelectorAll('[data-amenity-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.amenityMode;render()}));
  render();
 })();
+
+// Plans section interactions: master plan, unit plan, floor plan and image lightbox.
+(function(){
+ const masterTab=document.querySelector('[data-plan-view="master"]');
+ const planTab=document.querySelector('[data-plan-view="plan"]');
+ const masterView=document.getElementById('masterPlanView');
+ const unitView=document.getElementById('unitPlansView');
+ if(!masterTab||!planTab||!masterView||!unitView)return;
+ function setMainView(view){
+  const master=view==='master';
+  masterView.hidden=!master;
+  unitView.hidden=master;
+  masterTab.classList.toggle('active',master);
+  planTab.classList.toggle('active',!master);
+  masterTab.setAttribute('aria-selected',String(master));
+  planTab.setAttribute('aria-selected',String(!master));
+ }
+ masterTab.addEventListener('click',()=>setMainView('master'));
+ planTab.addEventListener('click',()=>setMainView('plan'));
+ const unitTab=document.querySelector('[data-unit-view="unit"]');
+ const floorTab=document.querySelector('[data-unit-view="floor"]');
+ const unitCards=document.getElementById('unitPlanCards');
+ const floorCards=document.getElementById('floorPlanCards');
+ function setUnitView(view){
+  const unit=view==='unit';
+  unitCards.hidden=!unit;
+  floorCards.hidden=unit;
+  unitTab.classList.toggle('active',unit);
+  floorTab.classList.toggle('active',!unit);
+  unitTab.setAttribute('aria-selected',String(unit));
+  floorTab.setAttribute('aria-selected',String(!unit));
+ }
+ unitTab.addEventListener('click',()=>setUnitView('unit'));
+ floorTab.addEventListener('click',()=>setUnitView('floor'));
+ const lightbox=document.getElementById('planLightbox');
+ const lightboxImage=document.getElementById('planLightboxImage');
+ const closeButton=document.getElementById('closePlanLightbox');
+ function closeLightbox(){
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxImage.src='';
+  document.body.classList.remove('plan-lightbox-open');
+ }
+ document.querySelectorAll('[data-enlarge-image]').forEach(button=>button.addEventListener('click',()=>{
+  const image=button.querySelector('img');
+  lightboxImage.src=button.dataset.enlargeImage;
+  lightboxImage.alt=image?image.alt:'Enlarged plan image';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.classList.add('plan-lightbox-open');
+  closeButton.focus();
+ }));
+ closeButton.addEventListener('click',closeLightbox);
+ lightbox.addEventListener('click',event=>{if(event.target===lightbox)closeLightbox()});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&lightbox.classList.contains('open'))closeLightbox()});
+})();

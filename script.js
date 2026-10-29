@@ -24,17 +24,21 @@ function renderTourSlide(index){tourSlideIndex=(index+tourSlides.length)%tourSli
 document.getElementById('tourPrev').addEventListener('click',()=>renderTourSlide(tourSlideIndex-1));document.getElementById('tourNext').addEventListener('click',()=>renderTourSlide(tourSlideIndex+1));document.querySelectorAll('[data-tour-slide]').forEach(b=>b.addEventListener('click',()=>renderTourSlide(Number(b.dataset.tourSlide))));
 renderTourSlide(0);
 
-/* Landing hero uses the same two supplied project image assets */
+/* Landing hero: two project images, with manual controls and automatic rotation. */
 (function(){
  const heroImages=[document.getElementById('heroSlideA'),document.getElementById('heroSlideB')];
  const dots=[...document.querySelectorAll('[data-hero-slide]')];
- if(heroImages.some(x=>!x)||!dots.length)return;
- let active=0;
+ if(heroImages.some(img=>!img)||dots.length!==2)return;
+ let active=0, timer;
  function showHeroSlide(index){
    active=(index+heroImages.length)%heroImages.length;
-   heroImages.forEach((img,i)=>img.classList.toggle('active',i===active));
-   dots.forEach((dot,i)=>dot.classList.toggle('active',i===active));
+   heroImages.forEach((img,i)=>{img.classList.toggle('active',i===active);img.setAttribute('aria-hidden',i!==active?'true':'false')});
+   dots.forEach((dot,i)=>{dot.classList.toggle('active',i===active);dot.setAttribute('aria-pressed',i===active?'true':'false')});
  }
- dots.forEach((dot,i)=>dot.addEventListener('click',()=>showHeroSlide(i)));
- showHeroSlide(0);
+ function restart(){clearInterval(timer);timer=setInterval(()=>showHeroSlide(active+1),6500)}
+ dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showHeroSlide(i);restart()}));
+ const hero=document.querySelector('.hero');
+ hero?.addEventListener('mouseenter',()=>clearInterval(timer));
+ hero?.addEventListener('mouseleave',restart);
+ showHeroSlide(0);restart();
 })();

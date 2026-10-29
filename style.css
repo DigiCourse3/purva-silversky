@@ -101,3 +101,40 @@ section[id]{scroll-margin-top:100px}
 .hero-slide-dot{width:42px;height:5px;background:#ffffff65;border:0;padding:0;cursor:pointer}
 .hero-slide-dot.active{background:#fff;width:50px}
 @media(max-width:700px){.hero-bg{object-position:center center}.hero-slide-controls{right:6%;bottom:92px}}
+
+
+/* Compact section rhythm across the page */
+.section{padding-top:58px;padding-bottom:58px}
+.overview.section{padding-bottom:30px}
+.videos.section{padding-top:28px}
+.section-title{margin-bottom:22px}
+.overview,.features{gap:3%}
+.overview-image{height:390px}
+.gallery-main{height:410px}
+.video-stage{height:430px}
+.location-panel,.map-panel{min-height:390px}
+.closing{height:410px}
+/* Premium amenities panel, based on the supplied reference */
+.premium-amenities{position:relative;isolation:isolate;overflow:hidden;background:#073765;color:#fff;padding:54px 6.3% 30px;min-height:590px}
+.amenities-backdrop{position:absolute;inset:0;z-index:-2;background-image:linear-gradient(90deg,rgba(3,47,88,.96),rgba(3,51,96,.9)),url('https://www.puravankara.com/_next/image?q=85&url=%2Fuploads%2FSide_Elevation_New_e481af257b.webp&w=2048');background-size:cover;background-position:center 45%;opacity:1}
+.amenities-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin:0 0 42px}
+.amenities-heading .eyebrow{margin:0 0 10px;color:#fff}
+.gold-mark{color:#ffbf35;font-size:12px;margin-right:5px}
+.amenities-heading h2{font:400 clamp(34px,3.1vw,48px)/1.15 var(--head);margin:0;color:#fff}
+.amenities-switch{display:flex;gap:12px;padding-top:8px}
+.amenity-mode{min-width:72px;padding:9px 16px;background:transparent;border:1px solid #fff;color:#fff;font-size:11px;transition:background .2s,color .2s}
+.amenity-mode:hover,.amenity-mode.active{background:#fff;color:#b98219}
+.amenities-content{display:grid;grid-template-columns:minmax(300px,.95fr) minmax(400px,1.05fr);gap:42px;align-items:center;max-width:1330px;margin:0 auto}
+.amenity-feature-image{position:relative;margin:0;height:clamp(300px,29vw,430px);background:#102e49;overflow:hidden}
+.amenity-feature-image img{width:100%;height:100%;object-fit:cover;transition:opacity .2s}
+.amenity-feature-image figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;background:linear-gradient(transparent,rgba(0,16,32,.82));font:500 16px var(--head);color:#fff}
+.amenity-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 14px;align-content:center}
+.amenity-choice{border:0;background:transparent;color:#fff;display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;text-align:center;padding:4px 3px 8px;min-height:104px;transition:color .2s,transform .2s}
+.amenity-choice:hover,.amenity-choice.active{color:#ffd06b;transform:translateY(-2px)}
+.amenity-choice.active .amenity-icon{border-bottom:2px solid #ffd06b}
+.amenity-icon{width:58px;height:58px;display:grid;place-items:center;border-bottom:2px solid transparent}
+.amenity-icon svg{width:52px;height:52px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.amenity-choice span:last-child{font-size:12px;font-weight:600;line-height:1.35}
+.amenities-disclaimer{font-size:9px;color:#d3e1ee;margin:22px 0 0;text-align:right}
+@media(max-width:900px){.amenities-content{grid-template-columns:1fr;gap:28px}.amenity-feature-image{height:360px}.amenity-options{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 10px}.amenities-heading{margin-bottom:28px}.premium-amenities{min-height:0}}
+@media(max-width:600px){.section{padding-top:42px;padding-bottom:42px}.overview.section{padding-bottom:24px}.videos.section{padding-top:22px}.overview-image{height:280px}.gallery-main{height:290px}.video-stage{height:320px}.location-panel,.map-panel{min-height:320px}.closing{height:360px}.premium-amenities{padding:36px 5% 24px}.amenities-heading{flex-direction:column;gap:18px}.amenities-heading h2{font-size:34px}.amenities-switch{padding-top:0}.amenities-content{gap:22px}.amenity-feature-image{height:260px}.amenity-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 7px}.amenity-icon{width:48px;height:48px}.amenity-icon svg{width:43px;height:43px}.amenity-choice{min-height:88px;gap:7px}.amenity-choice span:last-child{font-size:11px}.amenities-disclaimer{text-align:left}}

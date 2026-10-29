@@ -193,3 +193,20 @@ body.plan-lightbox-open{overflow:hidden}
  .plan-lightbox{padding:18px}
  .plan-lightbox img{max-width:96vw;max-height:86vh}
 }
+
+
+/* Crop unwanted header strips embedded in the supplied plan screenshots */
+#unitPlanCards .plan-image-button img{
+ transform:scale(1.10) translateY(-3%);
+ transform-origin:center center;
+}
+#floorPlanCards .plan-image-button img{
+ transform:scale(1.18) translateY(-5%);
+ transform-origin:center center;
+}
+#unitPlanCards .plan-image-button,
+#floorPlanCards .plan-image-button{overflow:hidden}
+@media(max-width:800px){
+ #unitPlanCards .plan-image-button img{transform:scale(1.08) translateY(-2.5%)}
+ #floorPlanCards .plan-image-button img{transform:scale(1.14) translateY(-4%)}
+}

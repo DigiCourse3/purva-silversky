@@ -37,3 +37,61 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
  });
  show(0);start();
 })();
+
+/* Interactive indoor/outdoor premium amenities */
+(function(){
+ const images={
+  indoor:[
+   {name:'Squash Court',src:'https://puravankara-silver-sky.com/img/Squash_Court_1_882d6d16e2.jpg',alt:'Indoor squash court'},
+   {name:'Snooker & Billiards',src:'https://puravankara-silver-sky.com/img/Snooker_Billiards_fed14aec58.jpg',alt:'Snooker and billiards room'},
+   {name:'Badminton Court',src:'https://puravankara-silver-sky.com/img/Badminton_Court_fb883beafb.jpg',alt:'Indoor badminton court'},
+   {name:'Library',src:'https://puravankara-silver-sky.com/img/Library_1_d33700a3d0.jpg',alt:'Residential library and reading area'},
+   {name:'Games Room',src:'https://puravankara-silver-sky.com/img/games-room.jpg',alt:'Indoor games room'},
+   {name:'Multipurpose Hall',src:'https://puravankara-silver-sky.com/img/Multipurpose_hall_1_261888d0a9.jpg',alt:'Multipurpose indoor hall'}
+  ],
+  outdoor:[
+   {name:'Swimming Pool',icon:'pool',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Residential towers and outdoor leisure spaces'},
+   {name:'Amphitheatre',icon:'amphi',src:'https://backend.puravankara.com/uploads/Silversky_585px_x_563px_1_80e097ccad.webp',alt:'Landscaped residential community'},
+   {name:'Futsal Court',icon:'court',src:'https://puravankara-silver-sky.com/img/Badminton_Court_fb883beafb.jpg',alt:'Sports court'},
+   {name:'Pet Corner',icon:'pet',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor community space'},
+   {name:'Pickle Ball Court',icon:'ball',src:'https://puravankara-silver-sky.com/img/Badminton_Court_fb883beafb.jpg',alt:'Outdoor racket sports court'},
+   {name:'Outdoor Gym',icon:'gym',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor fitness space'},
+   {name:'Skating Rink',icon:'skate',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor recreation space'}
+  ]
+ };
+ const icons={
+  squash:'<svg viewBox="0 0 64 64"><rect x="12" y="8" width="40" height="48" rx="2"/><path d="M18 15h28M18 49h28M20 18l24 28M44 18 20 46"/></svg>',
+  snooker:'<svg viewBox="0 0 64 64"><rect x="5" y="13" width="54" height="38" rx="4"/><rect x="10" y="18" width="44" height="28" rx="2"/><circle cx="18" cy="25" r="2"/><circle cx="46" cy="39" r="2"/><circle cx="32" cy="30" r="2"/><path d="M24 35l17-13"/></svg>',
+  badminton:'<svg viewBox="0 0 64 64"><path d="M32 8v48M6 18h52M6 46h52M6 18v28M58 18v28M6 32h52"/><path d="M27 8l5 7 5-7"/></svg>',
+  library:'<svg viewBox="0 0 64 64"><path d="M8 10h48v44H8zM8 23h48M8 38h48"/><path d="M15 14v6m9-6v6m10-6v6m10-6v6M16 27v8m10-8v8m10-8v8m10-8v8M15 42v8m10-8v8m10-8v8m10-8v8"/></svg>',
+  games:'<svg viewBox="0 0 64 64"><rect x="7" y="18" width="50" height="30" rx="8"/><path d="M17 33h12M23 27v12M42 29h.1M47 36h.1"/><path d="M10 48l-3 7m50-7 3 7"/></svg>',
+  hall:'<svg viewBox="0 0 64 64"><path d="M8 55V15h48v40M4 55h56M16 22h32M16 30h32M16 38h32M16 46h32"/><path d="M22 15V8h20v7"/></svg>',
+  pool:'<svg viewBox="0 0 64 64"><path d="M6 40c6-8 12 8 18 0s12 8 18 0 12 8 16 0"/><path d="M8 49c6-8 12 8 18 0s12 8 18 0 12 8 16 0"/><circle cx="32" cy="17" r="8"/><path d="M24 17h16M32 9v16"/></svg>',
+  amphi:'<svg viewBox="0 0 64 64"><path d="M8 48h48M13 40h38M18 32h28M23 24h18M28 16h8"/><path d="M8 48v7h48v-7"/></svg>',
+  court:'<svg viewBox="0 0 64 64"><rect x="5" y="10" width="54" height="44"/><path d="M32 10v44M5 32h54M14 10v44M50 10v44"/><circle cx="32" cy="32" r="6"/></svg>',
+  pet:'<svg viewBox="0 0 64 64"><circle cx="43" cy="12" r="5"/><path d="M43 18l-7 13-9 4M39 22l8 8 8 2M36 31l2 18M46 31l5 18M9 40l7-6 12 2 4 8-5 5H15z"/><circle cx="16" cy="31" r="3"/><circle cx="23" cy="29" r="3"/></svg>',
+  ball:'<svg viewBox="0 0 64 64"><circle cx="22" cy="32" r="17"/><circle cx="44" cy="32" r="17"/><path d="M11 20c8 2 14 8 16 16M35 20c8 2 14 8 16 16M11 44c8-2 14-8 16-16M35 44c8-2 14-8 16-16"/></svg>',
+  gym:'<svg viewBox="0 0 64 64"><path d="M14 25v14M8 21v22M50 25v14M56 21v22M14 32h36"/><path d="M26 13h12l-3 8h-6zM32 21v27M24 48h16M28 52h8"/></svg>',
+  skate:'<svg viewBox="0 0 64 64"><circle cx="39" cy="11" r="5"/><path d="M37 18l-9 11 8 7-5 10M28 29l-10 7-3 12M36 36l10 4 5 9M13 52h16M35 52h20"/><circle cx="18" cy="55" r="2"/><circle cx="48" cy="55" r="2"/></svg>'
+ };
+ const iconByName={'Squash Court':'squash','Snooker & Billiards':'snooker','Badminton Court':'badminton','Library':'library','Games Room':'games','Multipurpose Hall':'hall','Swimming Pool':'pool','Amphitheatre':'amphi','Futsal Court':'court','Pet Corner':'pet','Pickle Ball Court':'ball','Outdoor Gym':'gym','Skating Rink':'skate'};
+ const options=document.getElementById('amenityOptions'),feature=document.getElementById('amenityFeatureImage'),caption=document.getElementById('amenityFeatureCaption');
+ if(!options||!feature||!caption)return;
+ let mode='indoor';
+ function choose(item,button){
+  options.querySelectorAll('.amenity-choice').forEach(b=>b.classList.toggle('active',b===button));
+  feature.style.opacity='.35';
+  const pre=new Image();
+  pre.onload=()=>{feature.src=item.src;feature.alt=item.alt;feature.style.opacity='1'};
+  pre.onerror=()=>{feature.style.opacity='1';caption.textContent=item.name+' · Image temporarily unavailable'};
+  pre.src=item.src;caption.textContent=item.name;
+ }
+ function render(){
+  options.innerHTML=images[mode].map(item=>'<button type="button" class="amenity-choice" aria-label="Show '+item.name+' image"><span class="amenity-icon">'+(icons[iconByName[item.name]]||icons.court)+'</span><span>'+item.name+'</span></button>').join('');
+  options.querySelectorAll('.amenity-choice').forEach((button,i)=>button.addEventListener('click',()=>choose(images[mode][i],button)));
+  const first=images[mode][0];choose(first,options.querySelector('.amenity-choice'));
+  document.querySelectorAll('[data-amenity-mode]').forEach(b=>{const active=b.dataset.amenityMode===mode;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});
+ }
+ document.querySelectorAll('[data-amenity-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.amenityMode;render()}));
+ render();
+})();

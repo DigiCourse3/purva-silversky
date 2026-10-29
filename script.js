@@ -42,7 +42,7 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
 (function(){
  const makeImage=(filename,alt)=>({
    name:filename.name,
-   src:'assets/'+filename.file,
+   src:'/purva-silversky/assets/'+filename.file,
    fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/'+filename.file,
    alt
  });
@@ -56,13 +56,13 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
    makeImage({name:'Multipurpose Hall',file:'multipurpose-hall.jpg'},'Multipurpose indoor hall')
   ],
   outdoor:[
-   {name:'Swimming Pool',src:'assets/Swimming%20Pool.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Swimming%20Pool.jpg',alt:'Residential swimming pool'},
-   {name:'Amphitheatre',src:'assets/Amphitheatre.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Amphitheatre.jpg',alt:'Outdoor amphitheatre'},
-   {name:'Futsal Court',src:'assets/Futsal_court.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Futsal_court.jpg',alt:'Outdoor futsal court'},
-   {name:'Pet Corner',src:'assets/Pet%20Cornor.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Pet%20Cornor.jpg',alt:'Outdoor pet corner'},
-   {name:'Pickle Ball Court',src:'assets/Pickle_ball.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Pickle_ball.jpg',alt:'Outdoor pickleball court'},
-   {name:'Outdoor Gym',src:'assets/Outdoor_gym.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Outdoor_gym.jpg',alt:'Outdoor gym'},
-   {name:'Skating Rink',src:'assets/Skating_rink.jpg',fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/Skating_rink.jpg',alt:'Outdoor skating rink'}
+   {name:'Swimming Pool',src:'/purva-silversky/assets/Swimming%20Pool.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Swimming%20Pool.jpg',alt:'Residential swimming pool'},
+   {name:'Amphitheatre',src:'/purva-silversky/assets/Amphitheatre.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Amphitheatre.jpg',alt:'Outdoor amphitheatre'},
+   {name:'Futsal Court',src:'/purva-silversky/assets/Futsal_court.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Futsal_court.jpg',alt:'Outdoor futsal court'},
+   {name:'Pet Corner',src:'/purva-silversky/assets/Pet%20Cornor.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Pet%20Cornor.jpg',alt:'Outdoor pet corner'},
+   {name:'Pickle Ball Court',src:'/purva-silversky/assets/Pickle_ball.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Pickle_ball.jpg',alt:'Outdoor pickleball court'},
+   {name:'Outdoor Gym',src:'/purva-silversky/assets/Outdoor_gym.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Outdoor_gym.jpg',alt:'Outdoor gym'},
+   {name:'Skating Rink',src:'/purva-silversky/assets/Skating_rink.jpg',fallback:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/Skating_rink.jpg',alt:'Outdoor skating rink'}
   ]
  };
  const icons={

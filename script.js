@@ -88,21 +88,28 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
   const token=++selectionToken;
   options.querySelectorAll('.amenity-choice').forEach(b=>b.classList.toggle('active',b===button));
   caption.textContent=item.name;
-  feature.style.opacity='.35';
+  feature.alt=item.alt;
+  feature.style.opacity='1';
   feature.style.visibility='visible';
-  const load=(url,isFallback)=>{
-   const pre=new Image();
-   pre.onload=()=>{if(token!==selectionToken)return;feature.src=url;feature.alt=item.alt;feature.style.opacity='1';feature.style.visibility='visible';caption.textContent=item.name};
-   pre.onerror=()=>{
-    if(token!==selectionToken)return;
-    if(!isFallback&&item.fallback){load(item.fallback,true);return}
-    feature.style.opacity='1';
-    feature.style.visibility='hidden';
-    caption.textContent=item.name+' · Image unavailable';
-   };
-   pre.src=url;
+  let triedFallback=false;
+  feature.onerror=()=>{
+   if(token!==selectionToken)return;
+   if(!triedFallback&&item.fallback){
+    triedFallback=true;
+    feature.src=item.fallback;
+    return;
+   }
+   feature.onerror=null;
+   feature.style.visibility='hidden';
+   caption.textContent=item.name+' · Image unavailable';
   };
-  load(item.src,false);
+  feature.onload=()=>{
+   if(token!==selectionToken)return;
+   feature.style.visibility='visible';
+   caption.textContent=item.name;
+  };
+  // Assign directly to the displayed image; avoid waiting on a separate preloader first.
+  feature.src=item.src;
  }
  function render(){
   options.innerHTML=images[mode].map(item=>'<button type="button" class="amenity-choice" aria-label="Show '+item.name+' image"><span class="amenity-icon">'+(icons[iconByName[item.name]]||icons.court)+'</span><span>'+item.name+'</span></button>').join('');

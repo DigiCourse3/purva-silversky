@@ -42,19 +42,19 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
 (function(){
  const images={
   indoor:[
-   {name:'Squash Court',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FSquash_Court_1_882d6d16e2.webp&w=1920',alt:'Indoor squash court'},
-   {name:'Snooker & Billiards',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FPool_Table_or_Billiards_or_Indoor_games_room_eed86e4e0e.png&w=1920',alt:'Snooker and billiards room'},
-   {name:'Badminton Court',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2Fgame_3572b09eb9.png&w=1920',alt:'Indoor badminton court'},
-   {name:'Library',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2Fbook_3145740_369b09a427.svg&w=1920',alt:'Residential library and reading area'},
-   {name:'Games Room',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FIndoor_games_room_01_705d0fd899.png&w=1920',alt:'Indoor games room'},
-   {name:'Multipurpose Hall',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FFestival_Area_Banquet_Hall_celebration_area_7c04fe3782.png&w=1920',alt:'Multipurpose indoor hall'}
+   {name:'Squash Court',src:'https://backend.puravankara.com/uploads/Squash_Court_1_882d6d16e2.jpg',alt:'Indoor squash court'},
+   {name:'Snooker & Billiards',src:'https://backend.puravankara.com/uploads/Snooker_Billiards_fed14aec58.jpg',alt:'Snooker and billiards room'},
+   {name:'Badminton Court',src:'https://backend.puravankara.com/uploads/Badminton_Court_fb883beafb.jpg',alt:'Indoor badminton court'},
+   {name:'Library',src:'https://backend.puravankara.com/uploads/Library_1_d33700a3d0.jpg',alt:'Residential library and reading area'},
+   {name:'Games Room',src:'https://backend.puravankara.com/uploads/games-room.jpg',alt:'Indoor games room'},
+   {name:'Multipurpose Hall',src:'https://backend.puravankara.com/uploads/Multipurpose_hall_1_261888d0a9.jpg',alt:'Multipurpose indoor hall'}
   ],
   outdoor:[
    {name:'Swimming Pool',icon:'pool',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Residential towers and outdoor leisure spaces'},
    {name:'Amphitheatre',icon:'amphi',src:'https://backend.puravankara.com/uploads/Silversky_585px_x_563px_1_80e097ccad.webp',alt:'Landscaped residential community'},
-   {name:'Futsal Court',icon:'court',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2Fgame_3572b09eb9.png&w=1920',alt:'Sports court'},
+   {name:'Futsal Court',icon:'court',src:'https://backend.puravankara.com/uploads/Badminton_Court_fb883beafb.jpg',alt:'Sports court'},
    {name:'Pet Corner',icon:'pet',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor community space'},
-   {name:'Pickle Ball Court',icon:'ball',src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2Fgame_3572b09eb9.png&w=1920',alt:'Outdoor racket sports court'},
+   {name:'Pickle Ball Court',icon:'ball',src:'https://backend.puravankara.com/uploads/Badminton_Court_fb883beafb.jpg',alt:'Outdoor racket sports court'},
    {name:'Outdoor Gym',icon:'gym',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor fitness space'},
    {name:'Skating Rink',icon:'skate',src:'https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg',alt:'Outdoor recreation space'}
   ]
@@ -82,9 +82,9 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
   options.querySelectorAll('.amenity-choice').forEach(b=>b.classList.toggle('active',b===button));
   feature.style.opacity='.35';
   const pre=new Image();
-  const backup=item.fallback||'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FSquash_Court_1_882d6d16e2.webp&w=1920';
+  const backup=item.fallback||'https://backend.puravankara.com/uploads/Squash_Court_1_882d6d16e2.jpg';
   pre.onload=()=>{feature.src=pre.src;feature.alt=item.alt;feature.style.opacity='1';caption.textContent=item.name};
-  pre.onerror=()=>{if(feature.dataset.fallbackTried!=='1'){feature.dataset.fallbackTried='1';pre.src=backup;return}feature.style.opacity='1';caption.textContent=item.name+' · Image unavailable'};
+  pre.onerror=()=>{if(item.fallback&&!feature.dataset.fallbackTried){feature.dataset.fallbackTried='1';pre.src=item.fallback;return}feature.style.opacity='1';caption.textContent=item.name+' · Image unavailable'};
   pre.src=item.src;caption.textContent=item.name;
  }
  function render(){

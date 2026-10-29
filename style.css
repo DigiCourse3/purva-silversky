@@ -138,3 +138,16 @@ section[id]{scroll-margin-top:100px}
 .amenities-disclaimer{font-size:9px;color:#d3e1ee;margin:22px 0 0;text-align:right}
 @media(max-width:900px){.amenities-content{grid-template-columns:1fr;gap:28px}.amenity-feature-image{height:360px}.amenity-options{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 10px}.amenities-heading{margin-bottom:28px}.premium-amenities{min-height:0}}
 @media(max-width:600px){.section{padding-top:42px;padding-bottom:42px}.overview.section{padding-bottom:24px}.videos.section{padding-top:22px}.overview-image{height:280px}.gallery-main{height:290px}.video-stage{height:320px}.location-panel,.map-panel{min-height:320px}.closing{height:360px}.premium-amenities{padding:36px 5% 24px}.amenities-heading{flex-direction:column;gap:18px}.amenities-heading h2{font-size:34px}.amenities-switch{padding-top:0}.amenities-content{gap:22px}.amenity-feature-image{height:260px}.amenity-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 7px}.amenity-icon{width:48px;height:48px}.amenity-icon svg{width:43px;height:43px}.amenity-choice{min-height:88px;gap:7px}.amenity-choice span:last-child{font-size:11px}.amenities-disclaimer{text-align:left}}
+
+
+/* Final spacing pass: tighten the vertical rhythm between every content section. */
+.section{padding-top:42px;padding-bottom:42px}
+.overview.section{padding-top:42px;padding-bottom:18px}
+.features.section{padding-top:34px;padding-bottom:34px}
+.videos.section{padding-top:24px;padding-bottom:40px}
+.videos .section-title{margin-top:0;margin-bottom:18px}
+.amenities.section.premium-amenities{padding-top:48px;padding-bottom:26px}
+.plans.section,.gallery.section,.location.section{padding-top:42px;padding-bottom:42px}
+.section-title{margin-bottom:18px}
+.gallery-filters,.video-tabs{margin-top:18px;margin-bottom:24px}
+@media(max-width:760px){.section{padding-top:32px;padding-bottom:32px}.overview.section{padding-top:32px;padding-bottom:14px}.features.section{padding-top:28px;padding-bottom:28px}.videos.section{padding-top:18px;padding-bottom:30px}.amenities.section.premium-amenities{padding-top:32px;padding-bottom:22px}.plans.section,.gallery.section,.location.section{padding-top:32px;padding-bottom:32px}.section-title{margin-bottom:16px}.gallery-filters,.video-tabs{margin-top:14px;margin-bottom:18px}}

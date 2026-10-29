@@ -210,3 +210,9 @@ body.plan-lightbox-open{overflow:hidden}
  #unitPlanCards .plan-image-button img{transform:scale(1.08) translateY(-2.5%)}
  #floorPlanCards .plan-image-button img{transform:scale(1.14) translateY(-4%)}
 }
+
+
+/* User requested removal of the plan card images; retain card spacing and controls */
+.plan-image-placeholder{display:none!important}
+#unitPlanCards .plan-image-button,
+#floorPlanCards .plan-image-button{display:none!important}

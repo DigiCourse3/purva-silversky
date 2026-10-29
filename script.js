@@ -42,8 +42,8 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
 (function(){
  const makeImage=(filename,alt)=>({
    name:filename.name,
-   src:'https://raw.githubusercontent.com/DigiCourse3/purva-silversky/main/assets/'+filename.file,
-   fallback:null,
+   src:'assets/'+filename.file,
+   fallback:'https://cdn.jsdelivr.net/gh/DigiCourse3/purva-silversky@main/assets/'+filename.file,
    alt
  });
  const images={

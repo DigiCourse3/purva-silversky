@@ -20,7 +20,60 @@
   </div>
   <p class="amenities-disclaimer">Amenity images are illustrative. Please confirm final facilities with the developer.</p>
 </section>
-<section class="plans section" id="plans"><div class="plans-copy"><p class="eyebrow">FIND YOUR SPACE</p><h2>Plans &amp; Configurations</h2><p>Explore 3 and 4 BHK home configurations at Purva Silversky. Request the official floor plans, dimensions and availability from the project team.</p><div class="plan-options"><div><strong>3 BHK</strong><span>Thoughtfully planned family homes</span></div><div><strong>4 BHK</strong><span>Generous space for elevated living</span></div></div><button class="btn btn-blue" data-enquire>REQUEST FLOOR PLANS <span>↗</span></button></div><div class="plans-visual"><div class="plan-outline"><span class="plan-label">PURVA SILVERSKY</span><div class="plan-room room-one">LIVING</div><div class="plan-room room-two">BEDROOM</div><div class="plan-room room-three">DINING</div><div class="plan-room room-four">BEDROOM</div><div class="plan-room room-five">KITCHEN</div><div class="plan-room room-six">BALCONY</div></div><p>Illustrative layout graphic · Not an actual floor plan</p></div></section>
+<section class="plans section plans-gallery" id="plans">
+ <div class="plans-heading">
+  <div><p class="eyebrow">▲ PLANS</p><h2>Well-Planned Apartment Layouts</h2></div>
+  <div class="plans-top-tabs" role="tablist" aria-label="Plan type">
+   <button type="button" class="plan-tab active" data-plan-view="master" aria-selected="true">Master Plan</button>
+   <button type="button" class="plan-tab" data-plan-view="plan" aria-selected="false">Plan</button>
+  </div>
+ </div>
+ <div class="master-plan-view" id="masterPlanView">
+  <button type="button" class="plan-image-button master-plan-image" data-enlarge-image="assets/master_plan.jpg" aria-label="Enlarge master plan image">
+   <img src="assets/master_plan.jpg" alt="Purva Silversky master plan" loading="lazy" decoding="async">
+   <span class="image-zoom-hint">Click image to enlarge ⤢</span>
+  </button>
+ </div>
+ <div class="unit-plans-view" id="unitPlansView" hidden>
+  <div class="unit-plan-tabs" role="tablist" aria-label="Apartment plan category">
+   <button type="button" class="plan-tab active" data-unit-view="unit" aria-selected="true">Unit Plan</button>
+   <button type="button" class="plan-tab" data-unit-view="floor" aria-selected="false">Floor Plan</button>
+  </div>
+  <div class="plan-cards" id="unitPlanCards">
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/Unit_Plan_3_BHK_Type1.jpg" aria-label="Enlarge 3 BHK Type 1 unit plan"><img src="assets/Unit_Plan_3_BHK_Type1.jpg" alt="3 BHK Type 1 unit plan" loading="lazy" decoding="async"></button>
+    <h3>3BHK Type - 1</h3><p>Super built up area: 1,874 Sq. Ft</p><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/Unit_Plan_3_B3_T_Type2.jpg" aria-label="Enlarge 3 BHK Type 2 unit plan"><img src="assets/Unit_Plan_3_B3_T_Type2.jpg" alt="3 BHK Type 2 unit plan" loading="lazy" decoding="async"></button>
+    <h3>3BHK Type - 2</h3><p>Super built up area: 1,864 Sq. Ft</p><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/Unit_Plan_3_B3_Type3.avif" aria-label="Enlarge 3 BHK Type 3 unit plan"><img src="assets/Unit_Plan_3_B3_Type3.avif" alt="3 BHK Type 3 unit plan" loading="lazy" decoding="async"></button>
+    <h3>3B3T+M</h3><p>Super built up area: 2,300 Sq. Ft</p><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+  </div>
+  <div class="plan-cards floor-plan-cards" id="floorPlanCards" hidden>
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/TowerA.jpg" aria-label="Enlarge Tower A floor plan"><img src="assets/TowerA.jpg" alt="Tower A typical floor plan" loading="lazy" decoding="async"></button>
+    <h3>Tower A</h3><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/TowerB.jpg" aria-label="Enlarge Tower B floor plan"><img src="assets/TowerB.jpg" alt="Tower B typical floor plan" loading="lazy" decoding="async"></button>
+    <h3>Tower B</h3><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+   <article class="plan-card">
+    <button type="button" class="plan-image-button" data-enlarge-image="assets/TowerC.jpg" aria-label="Enlarge Tower C floor plan"><img src="assets/TowerC.jpg" alt="Tower C typical floor plan" loading="lazy" decoding="async"></button>
+    <h3>Tower C</h3><button class="btn btn-blue plan-enquire" data-enquire>Enquire Now</button>
+   </article>
+  </div>
+ </div>
+ <p class="plans-disclaimer">Plan images are provided for reference. Please confirm approved layouts and specifications with the developer.</p>
+</section>
+<div class="plan-lightbox" id="planLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged plan image">
+ <button type="button" class="plan-lightbox-close" id="closePlanLightbox" aria-label="Close enlarged image">×</button>
+ <img id="planLightboxImage" src="" alt="Enlarged plan">
+</div>
 <section class="gallery section" id="gallery"><div class="section-title"><p class="eyebrow">A GALLERY</p><h2>A Glimpse of Life at its Best!</h2><p>Explore the architecture, shared spaces and details planned for Purva Silversky.</p></div><div class="gallery-filters"><button class="filter active" data-gallery="exterior">Exterior</button><button class="filter" data-gallery="interior">Interior</button></div><div class="gallery-carousel"><button class="gallery-arrow prev" id="galleryPrev" aria-label="Previous image">‹</button><figure class="gallery-main"><img id="galleryImage" src="https://www.puravankara.com/_next/image?q=85&amp;url=https%3A%2F%2Fbackend.puravankara.com%2Fuploads%2FPurva_Silversky_Premium_Apartment_Living_in_Electronic_City_A_Buyer_s_Overview1_87bf3eaf56.webp&amp;w=1800" alt="Purva Silversky exterior rendering" loading="lazy"><figcaption id="galleryCaption">Exterior · Artistic impression</figcaption></figure><button class="gallery-arrow next" id="galleryNext" aria-label="Next image">›</button><div class="gallery-dots" id="galleryDots"></div></div><p class="disclaimer">Images are artistic impressions and illustrative representations. Confirm all specifications and approved plans with the developer.</p></section>
 <section class="location section" id="location"><div class="location-heading"><p class="eyebrow">CONNECTED LIVING</p><h2>Location Advantages</h2><p>Explore education, healthcare, work hubs and lifestyle destinations around Purva Silversky in Hebbagodi, Electronic City.</p></div><div class="location-layout"><div class="location-panel"><div class="location-tabs" role="tablist" aria-label="Location categories"><button class="loc-tab active" data-loc="education">Education</button><button class="loc-tab" data-loc="healthcare">Healthcare</button><button class="loc-tab" data-loc="work">Work Hubs &amp; Tech Parks</button><button class="loc-tab" data-loc="lifestyle">Entertainment &amp; Lifestyle</button></div><div class="location-list" id="locationList"></div><p class="location-note">Travel times are indicative and may vary with traffic and route.</p></div><div class="map-panel"><iframe id="locationMap" title="Map of Purva Silversky and nearby Electronic City destinations" src="https://www.google.com/maps?q=Purva%20Silversky%2C%20Hebbagodi%2C%20Electronic%20City%2C%20Bengaluru&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Purva+Silversky+Hebbagodi+Electronic+City+Bengaluru" target="_blank" rel="noopener">Open in Google Maps ↗</a></div></div></section>
 <section class="closing"><img src="https://www.puravankara.com/_next/image?q=85&amp;url=https%3A%2F%2Fbackend.puravankara.com%2Fuploads%2FPurva_Silversky_Premium_Apartment_Living_in_Electronic_City_A_Buyer_s_Overview1_87bf3eaf56.webp&amp;w=2400" alt="" loading="lazy"><div class="closing-shade"></div><div class="closing-copy"><p class="eyebrow light">YOUR NEXT CHAPTER</p><h2>A life composed<br>in <em>balance.</em></h2><p>Request project details, the latest brochure or a callback.</p><button class="btn btn-white" data-enquire>Enquire Now <span>↗</span></button></div></section>

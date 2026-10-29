@@ -1,54 +1,17 @@
-const modal = document.getElementById('enquiryModal');
-const closeButton = document.getElementById('closeModal');
-const form = document.getElementById('enquiryForm');
-const formStatus = document.getElementById('formStatus');
-const menuToggle = document.getElementById('menuToggle');
-const mainNav = document.getElementById('mainNav');
-
-function openEnquiry() {
-  modal.classList.add('is-open');
-  modal.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('modal-open');
-  formStatus.textContent = '';
-  formStatus.className = 'form-status';
-  window.setTimeout(() => document.getElementById('fullName').focus(), 180);
-}
-function closeEnquiry() {
-  modal.classList.remove('is-open');
-  modal.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('modal-open');
-}
-document.querySelectorAll('[data-enquire]').forEach(button => button.addEventListener('click', openEnquiry));
-closeButton.addEventListener('click', closeEnquiry);
-modal.querySelectorAll('[data-close]').forEach(element => element.addEventListener('click', closeEnquiry));
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && modal.classList.contains('is-open')) closeEnquiry();
-});
-menuToggle.addEventListener('click', () => {
-  const open = mainNav.classList.toggle('is-open');
-  menuToggle.setAttribute('aria-expanded', String(open));
-  menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-});
-mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-  mainNav.classList.remove('is-open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-}));
-document.getElementById('year').textContent = new Date().getFullYear();
-
-form.addEventListener('submit', async event => {
-  event.preventDefault();
-  if (!form.reportValidity()) return;
-
-  const mobile = document.getElementById('mobile');
-  if (!/^[6-9]\d{9}$/.test(mobile.value.trim())) {
-    formStatus.textContent = 'Please enter a valid 10-digit Indian mobile number.';
-    formStatus.className = 'form-status error';
-    mobile.focus();
-    return;
-  }
-
-  // Connect a form service before launch to deliver enquiries to your inbox.
-  // Example: configure FormSubmit/Formspree and POST the FormData to its endpoint.
-  formStatus.textContent = 'Form validated. To receive enquiries by email, connect this form to your preferred form endpoint before publishing.';
-  formStatus.className = 'form-status success';
-});
+const modal=document.getElementById('enquiryModal'),formStatus=document.getElementById('formStatus');
+function openEnquiry(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');formStatus.textContent='';formStatus.className='form-status';setTimeout(()=>document.getElementById('fullName').focus(),150)}
+function closeEnquiry(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');if(!document.getElementById('videoModal').classList.contains('is-open'))document.body.classList.remove('modal-open')}
+document.querySelectorAll('[data-enquire]').forEach(b=>b.addEventListener('click',openEnquiry));document.getElementById('closeModal').addEventListener('click',closeEnquiry);modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeEnquiry));document.getElementById('year').textContent=new Date().getFullYear();
+const menuToggle=document.getElementById('menuToggle'),mainNav=document.getElementById('mainNav');menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();closeVideo()}});
+document.getElementById('enquiryForm').addEventListener('submit',e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;const mobile=document.getElementById('mobile').value.trim();if(!/^[6-9]\d{9}$/.test(mobile)){formStatus.textContent='Please enter a valid 10-digit Indian mobile number.';formStatus.className='form-status error';return}formStatus.textContent='Your details are valid. Connect an email/form service before launch to receive enquiries.';formStatus.className='form-status success'});
+const galleryItems={exterior:[{src:'https://www.puravankara.com/_next/image?q=85&url=https%3A%2F%2Fbackend.puravankara.com%2Fuploads%2FPurva_Silversky_Premium_Apartment_Living_in_Electronic_City_A_Buyer_s_Overview1_87bf3eaf56.webp&w=1800',alt:'Purva Silversky residential towers at sunset',caption:'Exterior · Tower elevation'},{src:'https://bsmedia.business-standard.com/_media/bs/img/article/2026-02/19/full/20260219154353.jpg',alt:'Aerial artistic rendering of three residential towers',caption:'Exterior · Aerial view'},{src:'https://puravankara-silver-sky.com/img/b1.jpg',alt:'Purva Silversky entrance and landscaped approach',caption:'Exterior · Entrance view'}],interior:[{src:'https://www.puravankara.com/_next/image?q=85&url=https%3A%2F%2Fbackend.puravankara.com%2Fuploads%2FPurva_Silversky_Premium_Apartment_Living_in_Electronic_City_A_Buyer_s_Overview1_87bf3eaf56.webp&w=1800',alt:'Purva Silversky architectural rendering',caption:'Interior · Illustrative project visual'},{src:'https://puravankara-silver-sky.com/img/b1.jpg',alt:'Contemporary residential entrance',caption:'Interior and design · Illustrative visual'},{src:'https://bsmedia.business-standard.com/_media/bs/img/article/2026-02/19/full/20260219154353.jpg',alt:'Residential towers and landscape',caption:'Living spaces · Illustrative project visual'}]};
+let galleryCategory='exterior',galleryIndex=0;
+function renderGallery(){const item=galleryItems[galleryCategory][galleryIndex],img=document.getElementById('galleryImage');img.style.opacity='.25';const preload=new Image();preload.onload=()=>{img.src=item.src;img.alt=item.alt;img.style.opacity='1'};preload.onerror=()=>{img.style.opacity='1'};preload.src=item.src;document.getElementById('galleryCaption').textContent=item.caption+' · Artistic impression';document.querySelectorAll('[data-gallery]').forEach(b=>b.classList.toggle('active',b.dataset.gallery===galleryCategory));document.getElementById('galleryDots').innerHTML=galleryItems[galleryCategory].map((_,i)=>'<button class="gallery-dot '+(i===galleryIndex?'active':'')+'" aria-label="Show image '+(i+1)+'" data-dot="'+i+'"></button>').join('');document.querySelectorAll('[data-dot]').forEach(b=>b.addEventListener('click',()=>{galleryIndex=Number(b.dataset.dot);renderGallery()}))}
+document.querySelectorAll('[data-gallery]').forEach(b=>b.addEventListener('click',()=>{galleryCategory=b.dataset.gallery;galleryIndex=0;renderGallery()}));document.getElementById('galleryPrev').addEventListener('click',()=>{galleryIndex=(galleryIndex+galleryItems[galleryCategory].length-1)%galleryItems[galleryCategory].length;renderGallery()});document.getElementById('galleryNext').addEventListener('click',()=>{galleryIndex=(galleryIndex+1)%galleryItems[galleryCategory].length;renderGallery()});renderGallery();
+const videoData={location:{id:'IrpAXsxVPiM',title:'Regional Connectivity. Global Access.',label:'PURVA SILVERSKY · LOCATION'},lifestyle:{id:'LUZokJTlg_I',title:'A Glimpse of Life at its Best!',label:'PURVA SILVERSKY · LIFESTYLE'},walkthrough:{id:'5Lakarp1NyY',title:'Explore the Residences',label:'PURVA SILVERSKY · WALKTHROUGH'},sustainability:{id:'H3xqCBVIRss',title:'Spaces Designed Around Wellbeing',label:'PURVA SILVERSKY · SUSTAINABILITY'}};let activeVideo='location';
+function selectVideo(key){activeVideo=key;const data=videoData[key],img=document.getElementById('videoThumbnail');img.src='https://img.youtube.com/vi/'+data.id+'/maxresdefault.jpg';img.onerror=function(){this.onerror=null;this.src='https://img.youtube.com/vi/'+data.id+'/hqdefault.jpg'};document.getElementById('videoTitle').textContent=data.title;document.getElementById('videoEyebrow').textContent=data.label;document.querySelectorAll('[data-video]').forEach(b=>{const active=b.dataset.video===key;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))})}
+document.querySelectorAll('[data-video]').forEach(b=>b.addEventListener('click',()=>selectVideo(b.dataset.video)));
+const videoModal=document.getElementById('videoModal'),videoFrame=document.getElementById('videoFrame');function playVideo(){videoFrame.src='https://www.youtube-nocookie.com/embed/'+videoData[activeVideo].id+'?autoplay=1&rel=0';videoModal.classList.add('is-open');videoModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')}function closeVideo(){videoModal.classList.remove('is-open');videoModal.setAttribute('aria-hidden','true');videoFrame.src='about:blank';if(!modal.classList.contains('is-open'))document.body.classList.remove('modal-open')}document.getElementById('playVideo').addEventListener('click',playVideo);document.getElementById('closeVideo').addEventListener('click',closeVideo);videoModal.addEventListener('click',e=>{if(e.target===videoModal)closeVideo()});selectVideo('location');
+const locationData={education:[['St. Francis de Sales Public School','1.2 km · 3 min'],['IIT Bangalore East Campus','1.1 km · 5 min'],['PES University, Electronic City','2.9 km · 8 min'],['Ebenezer International School','2.8 km · 10 min'],['Sri Chaitanya School','3.1 km · 11 min'],['Symbiosis Centre for Management Studies','3.4 km · 11 min'],['Narayana Hrudayalaya Colleges','4.7 km · 11 min'],['Azim Premji University','14 km · 35 min']],healthcare:[['JJ Hospitals','2.7 km · 7 min'],['Springleaf Hospital','3.2 km · 8 min'],['Narayana Institute of Cardiac Sciences','4.8 km · 12 min'],['Mazumdar Shaw Medical Centre','6.6 km · 12 min'],['Oxford Medical Hospital','16 km · 28 min']],work:[['Continental Automotive Components','1.6 km · 4 min'],['HCL Tech Semiconductor','1.6 km · 5 min'],['Tata Consultancy Services','3 km · 9 min'],['Tech Mahindra','3.4 km · 9 min'],['Infosys Limited','4.7 km · 13 min'],['Wipro Campus','6.2 km · 18 min']],lifestyle:[['M5 Ecity Mall','1.5 km · 4 min'],['DMart Bommasandra','3.2 km · 7 min'],['Decathlon Chandapura','4.4 km · 8 min'],['Gold Coins Club & Resort','3.3 km · 12 min'],['Nirantara Resort & Spa','8.8 km · 22 min']]};
+function renderLocation(key){document.getElementById('locationList').innerHTML=locationData[key].map(p=>'<div class="place-row"><strong>'+p[0]+'</strong><span>'+p[1]+'</span></div>').join('');document.querySelectorAll('[data-loc]').forEach(b=>b.classList.toggle('active',b.dataset.loc===key))}document.querySelectorAll('[data-loc]').forEach(b=>b.addEventListener('click',()=>renderLocation(b.dataset.loc)));renderLocation('education');

@@ -42,7 +42,7 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
 (function(){
  const makeImage=(filename,alt)=>({
    name:filename.name,
-   src:'assets/amenities/'+filename.file,
+   src:'assets/'+filename.file,
    fallback:null,
    alt
  });
@@ -56,13 +56,13 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
    makeImage({name:'Multipurpose Hall',file:'multipurpose-hall.jpg'},'Multipurpose indoor hall')
   ],
   outdoor:[
-   {name:'Swimming Pool',src:'assets/amenities/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Residential towers and outdoor leisure spaces'},
-   {name:'Amphitheatre',src:'assets/amenities/Silversky_585px_x_563px_1_80e097ccad.webp',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Silversky_585px_x_563px_1_80e097ccad.webp')+'&w=1200',alt:'Landscaped residential community'},
+   {name:'Swimming Pool',src:'assets/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Residential towers and outdoor leisure spaces'},
+   {name:'Amphitheatre',src:'assets/Silversky_585px_x_563px_1_80e097ccad.webp',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Silversky_585px_x_563px_1_80e097ccad.webp')+'&w=1200',alt:'Landscaped residential community'},
    {name:'Futsal Court',src:'assets/badminton-court.jpg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('assets/badminton-court.jpg')+'&w=1200',alt:'Sports court'},
-   {name:'Pet Corner',src:'assets/amenities/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor community space'},
+   {name:'Pet Corner',src:'assets/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor community space'},
    {name:'Pickle Ball Court',src:'assets/badminton-court.jpg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('assets/badminton-court.jpg')+'&w=1200',alt:'Outdoor racket sports court'},
-   {name:'Outdoor Gym',src:'assets/amenities/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor fitness space'},
-   {name:'Skating Rink',src:'assets/amenities/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor recreation space'}
+   {name:'Outdoor Gym',src:'assets/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor fitness space'},
+   {name:'Skating Rink',src:'assets/Render_10_cb27dc6148.jpeg',fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/Render_10_cb27dc6148.jpeg')+'&w=1200',alt:'Outdoor recreation space'}
   ]
  };
  const icons={

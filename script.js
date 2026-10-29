@@ -42,8 +42,8 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
 (function(){
  const makeImage=(filename,alt)=>({
    name:filename.name,
-   src:'https://backend.puravankara.com/uploads/'+filename.file,
-   fallback:'https://www.puravankara.com/_next/image?q=85&url='+encodeURIComponent('https://backend.puravankara.com/uploads/'+filename.file)+'&w=1200',
+   src:'assets/amenities/'+filename.file,
+   fallback:null,
    alt
  });
  const images={

@@ -16,10 +16,25 @@ const videoModal=document.getElementById('videoModal'),videoFrame=document.getEl
 const locationData={education:[['St. Francis de Sales Public School','1.2 km · 3 min'],['IIT Bangalore East Campus','1.1 km · 5 min'],['PES University, Electronic City','2.9 km · 8 min'],['Ebenezer International School','2.8 km · 10 min'],['Sri Chaitanya School','3.1 km · 11 min'],['Symbiosis Centre for Management Studies','3.4 km · 11 min'],['Narayana Hrudayalaya Colleges','4.7 km · 11 min'],['Azim Premji University','14 km · 35 min']],healthcare:[['JJ Hospitals','2.7 km · 7 min'],['Springleaf Hospital','3.2 km · 8 min'],['Narayana Institute of Cardiac Sciences','4.8 km · 12 min'],['Mazumdar Shaw Medical Centre','6.6 km · 12 min'],['Oxford Medical Hospital','16 km · 28 min']],work:[['Continental Automotive Components','1.6 km · 4 min'],['HCL Tech Semiconductor','1.6 km · 5 min'],['Tata Consultancy Services','3 km · 9 min'],['Tech Mahindra','3.4 km · 9 min'],['Infosys Limited','4.7 km · 13 min'],['Wipro Campus','6.2 km · 18 min']],lifestyle:[['M5 Ecity Mall','1.5 km · 4 min'],['DMart Bommasandra','3.2 km · 7 min'],['Decathlon Chandapura','4.4 km · 8 min'],['Gold Coins Club & Resort','3.3 km · 12 min'],['Nirantara Resort & Spa','8.8 km · 22 min']]};
 function renderLocation(key){document.getElementById('locationList').innerHTML=locationData[key].map(p=>'<div class="place-row"><strong>'+p[0]+'</strong><span>'+p[1]+'</span></div>').join('');document.querySelectorAll('[data-loc]').forEach(b=>b.classList.toggle('active',b.dataset.loc===key))}document.querySelectorAll('[data-loc]').forEach(b=>b.addEventListener('click',()=>renderLocation(b.dataset.loc)));renderLocation('education');
 const tourSlides=[
- {src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FSide_Elevation_New_e481af257b.webp&w=2048',fallback:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FRender_8_c05c085f7a.webp&w=2048',alt:'Purva Silversky aerial architectural rendering',title:'A distinctive skyline, surrounded by green open spaces'},
- {src:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FRender_8_c05c085f7a.webp&w=2048',fallback:'https://www.puravankara.com/_next/image?q=75&url=%2Fuploads%2FSide_Elevation_New_e481af257b.webp&w=2048',alt:'Purva Silversky residential towers in a landscaped setting',title:'Contemporary towers designed for balanced living'}
+ {src:'https://backend.puravankara.com/uploads/Silversky_585px_x_563px_1_80e097ccad.webp',fallback:'https://www.puravankara.com/uploads/Side_Elevation_New_e481af257b.webp',alt:'Aerial view of Purva Silversky towers and green landscape',title:'A distinctive skyline, surrounded by green open spaces'},
+ {src:'https://backend.puravankara.com/uploads/Purva_Silversky_Website_Banner_1920px_X_1080px_26a4982d28.jpeg',fallback:'https://www.puravankara.com/uploads/Render_8_c05c085f7a.webp',alt:'Purva Silversky residential towers in a landscaped setting',title:'Contemporary towers designed for balanced living'}
 ];
 let tourSlideIndex=0;
 function renderTourSlide(index){tourSlideIndex=(index+tourSlides.length)%tourSlides.length;const item=tourSlides[tourSlideIndex],img=document.getElementById('tourSlideImage');img.style.opacity='.35';const preload=new Image();preload.onload=()=>{img.src=item.src;img.alt=item.alt;img.style.opacity='1'};preload.onerror=()=>{img.style.opacity='1'};preload.src=item.src;document.getElementById('tourSlideTitle').textContent=item.title;document.querySelectorAll('[data-tour-slide]').forEach(b=>b.classList.toggle('active',Number(b.dataset.tourSlide)===tourSlideIndex))}
 document.getElementById('tourPrev').addEventListener('click',()=>renderTourSlide(tourSlideIndex-1));document.getElementById('tourNext').addEventListener('click',()=>renderTourSlide(tourSlideIndex+1));document.querySelectorAll('[data-tour-slide]').forEach(b=>b.addEventListener('click',()=>renderTourSlide(Number(b.dataset.tourSlide))));
 renderTourSlide(0);
+
+/* Landing hero uses the same two supplied project image assets */
+(function(){
+ const heroImages=[document.getElementById('heroSlideA'),document.getElementById('heroSlideB')];
+ const dots=[...document.querySelectorAll('[data-hero-slide]')];
+ if(heroImages.some(x=>!x)||!dots.length)return;
+ let active=0;
+ function showHeroSlide(index){
+   active=(index+heroImages.length)%heroImages.length;
+   heroImages.forEach((img,i)=>img.classList.toggle('active',i===active));
+   dots.forEach((dot,i)=>dot.classList.toggle('active',i===active));
+ }
+ dots.forEach((dot,i)=>dot.addEventListener('click',()=>showHeroSlide(i)));
+ showHeroSlide(0);
+})();

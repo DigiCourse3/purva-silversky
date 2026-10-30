@@ -407,3 +407,61 @@ main>section[id]{scroll-margin-top:88px}
  .hero h1{font-size:clamp(32px,9vw,42px)}
  .hero-buttons .btn{font-size:10px;padding-left:11px;padding-right:11px}
 }
+
+
+/* Mobile full-viewport alignment: remove any fixed-width child that can shift the page sideways. */
+@media (max-width: 760px) {
+  html, body {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: clip !important;
+  }
+  body, main, .header, main > section, .footer, .legal-footer {
+    position: relative;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none;
+  }
+  main { display: block; }
+  main > section { box-sizing: border-box; }
+  .hero {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .hero-bg, .hero-overlay {
+    width: 100% !important;
+    max-width: none !important;
+  }
+  .header .logo { flex: 0 1 auto; }
+  .header .brand-logo {
+    display: block;
+    width: min(58vw, 230px) !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+  .hero-copy { box-sizing: border-box; }
+  .hero h1, .hero-subtitle, .hero-price, .hero-details {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .overview, .features, .plans, .contact, .location-layout,
+  .amenities-content, .footer, .plan-cards {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .gallery-carousel, .video-stage, .amenity-feature-image,
+  .map-panel, .contact-form-wrap, .plans-visual {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .side-enquire { right: 0 !important; }
+}

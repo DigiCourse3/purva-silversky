@@ -376,3 +376,8 @@ main>section[id]{scroll-margin-top:88px}
 
 /* Gallery: show complete exterior and interior photos without cropping */
 .gallery-main img{width:100%;height:100%;object-fit:contain;object-position:center;background:#dce4eb}
+
+/* Gallery sizing: keep every Exterior and Interior image fully visible inside the same responsive frame. */
+.gallery-main{height:auto!important;aspect-ratio:16/9;width:100%;}
+.gallery-main img{display:block;width:100%;height:100%;object-fit:contain!important;object-position:center;background:#dce4eb;}
+@media(max-width:760px){.gallery-main{height:auto!important;aspect-ratio:16/9;min-height:0;}}

@@ -57,7 +57,7 @@ const galleryItems={
   image.onerror=null;
   image.alt=item.alt;
   image.src=item.src;
-  caption.textContent=item.caption+' · Artistic impression';
+  caption.textContent=item.caption;
   tabs.forEach(tab=>{
    const active=tab.dataset.gallery===category;
    tab.classList.toggle('active',active);

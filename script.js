@@ -90,6 +90,11 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
  let current=0, intervalId=null;
  const show=(n)=>{
    current=(n+2)%2;
+   const activeImage=images[current];
+   if(activeImage.dataset.src&&!activeImage.src){
+     activeImage.src=activeImage.dataset.src;
+     activeImage.removeAttribute('data-src');
+   }
    images.forEach((img,i)=>{img.classList.toggle('active',i===current);img.setAttribute('aria-hidden',i===current?'false':'true')});
    dots.forEach((dot,i)=>{dot.classList.toggle('active',i===current);dot.setAttribute('aria-pressed',i===current?'true':'false')});
  };

@@ -1,7 +1,7 @@
 const modal=document.getElementById('enquiryModal'),formStatus=document.getElementById('formStatus');
 function openEnquiry(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');formStatus.textContent='';formStatus.className='form-status';setTimeout(()=>document.getElementById('fullName').focus(),150)}
 function closeEnquiry(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');if(!document.getElementById('videoModal').classList.contains('is-open'))document.body.classList.remove('modal-open')}
-document.querySelectorAll('[data-enquire]').forEach(b=>b.addEventListener('click',openEnquiry));document.getElementById('closeModal').addEventListener('click',closeEnquiry);modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeEnquiry));document.getElementById('year').textContent=new Date().getFullYear();
+document.querySelectorAll('[data-enquire]').forEach(b=>b.addEventListener('click',openEnquiry));document.getElementById('closeModal').addEventListener('click',closeEnquiry);modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeEnquiry));const yearElement=document.getElementById('year');if(yearElement)yearElement.textContent=new Date().getFullYear();
 const menuToggle=document.getElementById('menuToggle'),mainNav=document.getElementById('mainNav');menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')});mainNav.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
  const id=a.getAttribute('href').slice(1);
  const target=document.getElementById(id);

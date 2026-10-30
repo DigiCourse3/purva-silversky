@@ -24,7 +24,15 @@ function renderGallery(){
  document.getElementById('galleryDots').innerHTML=items.map((_,i)=>'<button class="gallery-dot '+(i===galleryIndex?'active':'')+'" aria-label="Show image '+(i+1)+'" data-dot="'+i+'"></button>').join('');
  document.querySelectorAll('[data-dot]').forEach(b=>b.addEventListener('click',()=>{galleryIndex=Number(b.dataset.dot);renderGallery()}));
 }
-document.querySelectorAll('[data-gallery]').forEach(b=>b.addEventListener('click',()=>{galleryCategory=b.dataset.gallery;galleryIndex=0;renderGallery()}));document.getElementById('galleryPrev').addEventListener('click',()=>{galleryIndex=(galleryIndex+galleryItems[galleryCategory].length-1)%galleryItems[galleryCategory].length;renderGallery()});document.getElementById('galleryNext').addEventListener('click',()=>{galleryIndex=(galleryIndex+1)%galleryItems[galleryCategory].length;renderGallery()});renderGallery();
+document.addEventListener('click',event=>{
+ const tab=event.target.closest('[data-gallery]');
+ if(tab){event.preventDefault();galleryCategory=tab.dataset.gallery;galleryIndex=0;galleryFailedSources.clear();renderGallery();return;}
+ if(event.target.closest('#galleryPrev')){event.preventDefault();galleryIndex=(galleryIndex+galleryItems[galleryCategory].length-1)%galleryItems[galleryCategory].length;renderGallery();return;}
+ if(event.target.closest('#galleryNext')){event.preventDefault();galleryIndex=(galleryIndex+1)%galleryItems[galleryCategory].length;renderGallery();return;}
+ const dot=event.target.closest('[data-dot]');
+ if(dot&&dot.closest('#galleryDots')){event.preventDefault();galleryIndex=Number(dot.dataset.dot);renderGallery();}
+},true);
+renderGallery();
 const videoData={location:{id:'IrpAXsxVPiM',title:'Regional Connectivity. Global Access.',label:'PURVA SILVERSKY · LOCATION'},lifestyle:{id:'LUZokJTlg_I',title:'A Glimpse of Life at its Best!',label:'PURVA SILVERSKY · LIFESTYLE'},walkthrough:{id:'5Lakarp1NyY',title:'Explore the Residences',label:'PURVA SILVERSKY · WALKTHROUGH'},sustainability:{id:'H3xqCBVIRss',title:'Spaces Designed Around Wellbeing',label:'PURVA SILVERSKY · SUSTAINABILITY'}};let activeVideo='location';
 function selectVideo(key){activeVideo=key;const data=videoData[key],img=document.getElementById('videoThumbnail');img.src='https://img.youtube.com/vi/'+data.id+'/maxresdefault.jpg';img.onerror=function(){this.onerror=null;this.src='https://img.youtube.com/vi/'+data.id+'/hqdefault.jpg'};document.getElementById('videoTitle').textContent=data.title;document.getElementById('videoEyebrow').textContent=data.label;document.querySelectorAll('[data-video]').forEach(b=>{const active=b.dataset.video===key;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))})}
 document.querySelectorAll('[data-video]').forEach(b=>b.addEventListener('click',()=>selectVideo(b.dataset.video)));

@@ -10,8 +10,10 @@ const menuToggle=document.getElementById('menuToggle'),mainNav=document.getEleme
  mainNav.classList.remove('open');
  menuToggle.setAttribute('aria-expanded','false');
  menuToggle.setAttribute('aria-label','Open menu');
+ const headerHeight=document.querySelector('.header')?.offsetHeight||0;
+ const top=target.getBoundingClientRect().top+window.scrollY-headerHeight-8;
  history.replaceState(null,'','#'+id);
- target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+ window.scrollTo({top,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();closeVideo()}});
 function handleEnquirySubmit(e){e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const mobileInput=form.querySelector('input[name="mobile"]'),status=form.querySelector('.form-status'),mobile=mobileInput.value.trim();if(!/^[6-9]\d{9}$/.test(mobile)){status.textContent='Please enter a valid 10-digit Indian mobile number.';status.className='form-status error';return}status.textContent='Form validated. Connect an email or lead-management service to receive enquiries.';status.className='form-status success'}document.querySelectorAll('#enquiryForm,#contactForm').forEach(form=>form.addEventListener('submit',handleEnquirySubmit));

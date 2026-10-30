@@ -331,3 +331,7 @@ button,a{touch-action:manipulation}
  .faq-item summary{font-size:16px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-bg{transition:none!important;will-change:auto}}
+
+/* Reliable anchor landing under the sticky header */
+main>section[id]{scroll-margin-top:88px}
+@media(max-width:760px){main>section[id]{scroll-margin-top:74px}}

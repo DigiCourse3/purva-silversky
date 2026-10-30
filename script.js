@@ -20,7 +20,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();clos
 document.querySelectorAll('#enquiryForm,#contactForm').forEach(form=>{
   form.addEventListener('submit',e=>{
     const mobile=form.querySelector('input[name="mobile"]');
-    if(mobile&&!/^[6-9]\\d{9}$/.test(mobile.value.trim())){
+    if(mobile&&!/^[6-9][0-9]{9}$/.test(mobile.value.trim())){
       e.preventDefault();
       const status=form.querySelector('.form-status');
       if(status){status.textContent='Please enter a valid 10-digit Indian mobile number.';status.className='form-status error';}

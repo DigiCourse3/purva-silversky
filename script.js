@@ -2,7 +2,17 @@ const modal=document.getElementById('enquiryModal'),formStatus=document.getEleme
 function openEnquiry(){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');formStatus.textContent='';formStatus.className='form-status';setTimeout(()=>document.getElementById('fullName').focus(),150)}
 function closeEnquiry(){modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');if(!document.getElementById('videoModal').classList.contains('is-open'))document.body.classList.remove('modal-open')}
 document.querySelectorAll('[data-enquire]').forEach(b=>b.addEventListener('click',openEnquiry));document.getElementById('closeModal').addEventListener('click',closeEnquiry);modal.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeEnquiry));document.getElementById('year').textContent=new Date().getFullYear();
-const menuToggle=document.getElementById('menuToggle'),mainNav=document.getElementById('mainNav');menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}));
+const menuToggle=document.getElementById('menuToggle'),mainNav=document.getElementById('mainNav');menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')});mainNav.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+ const id=a.getAttribute('href').slice(1);
+ const target=document.getElementById(id);
+ if(!target)return;
+ e.preventDefault();
+ mainNav.classList.remove('open');
+ menuToggle.setAttribute('aria-expanded','false');
+ menuToggle.setAttribute('aria-label','Open menu');
+ history.replaceState(null,'','#'+id);
+ target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();closeVideo()}});
 function handleEnquirySubmit(e){e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const mobileInput=form.querySelector('input[name="mobile"]'),status=form.querySelector('.form-status'),mobile=mobileInput.value.trim();if(!/^[6-9]\d{9}$/.test(mobile)){status.textContent='Please enter a valid 10-digit Indian mobile number.';status.className='form-status error';return}status.textContent='Form validated. Connect an email or lead-management service to receive enquiries.';status.className='form-status success'}document.querySelectorAll('#enquiryForm,#contactForm').forEach(form=>form.addEventListener('submit',handleEnquirySubmit));
 const galleryItems={

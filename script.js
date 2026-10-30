@@ -5,34 +5,77 @@ document.querySelectorAll('[data-enquire]').forEach(b=>b.addEventListener('click
 const menuToggle=document.getElementById('menuToggle'),mainNav=document.getElementById('mainNav');menuToggle.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu')});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false')}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();closeVideo()}});
 function handleEnquirySubmit(e){e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const mobileInput=form.querySelector('input[name="mobile"]'),status=form.querySelector('.form-status'),mobile=mobileInput.value.trim();if(!/^[6-9]\d{9}$/.test(mobile)){status.textContent='Please enter a valid 10-digit Indian mobile number.';status.className='form-status error';return}status.textContent='Form validated. Connect an email or lead-management service to receive enquiries.';status.className='form-status success'}document.querySelectorAll('#enquiryForm,#contactForm').forEach(form=>form.addEventListener('submit',handleEnquirySubmit));
-const galleryItems={exterior:[{src:'assets/Render.jpg',alt:'Purva Silversky exterior image 1',caption:'Exterior · Project view 1'},{src:'assets/Render1.jpg',alt:'Purva Silversky exterior image 2',caption:'Exterior · Project view 2'},{src:'assets/Render2.jpg',alt:'Purva Silversky exterior image 3',caption:'Exterior · Project view 3'},{src:'assets/Render3.jpg',alt:'Purva Silversky exterior image 4',caption:'Exterior · Project view 4'},{src:'assets/Render4.jpg',alt:'Purva Silversky exterior image 5',caption:'Exterior · Project view 5'},{src:'assets/Render5.jpg',alt:'Purva Silversky exterior image 6',caption:'Exterior · Project view 6'},{src:'assets/Render6.jpg',alt:'Purva Silversky exterior image 7',caption:'Exterior · Project view 7'},{src:'assets/Render7.jpg',alt:'Purva Silversky exterior image 8',caption:'Exterior · Project view 8'},{src:'assets/Render8.jpg',alt:'Purva Silversky exterior image 9',caption:'Exterior · Project view 9'},{src:'assets/Render9.jpg',alt:'Purva Silversky exterior image 10',caption:'Exterior · Project view 10'},{src:'assets/Render10.jpg',alt:'Purva Silversky exterior image 11',caption:'Exterior · Project view 11'},{src:'assets/Render11.jpg',alt:'Purva Silversky exterior image 12',caption:'Exterior · Project view 12'}],interior:[{src:'assets/Interior.jpg',alt:'Purva Silversky interior image 1',caption:'Interior · Interior view 1'},{src:'assets/Interior1.jpg',alt:'Purva Silversky interior image 2',caption:'Interior · Interior view 2'},{src:'assets/Interior2.jpg',alt:'Purva Silversky interior image 3',caption:'Interior · Interior view 3'},{src:'assets/Interior3.jpg',alt:'Purva Silversky interior image 4',caption:'Interior · Interior view 4'},{src:'assets/Interior4.jpg',alt:'Purva Silversky interior image 5',caption:'Interior · Interior view 5'}]};
-let galleryCategory='exterior',galleryIndex=0;
-const galleryFailedSources=new Set();
-function renderGallery(){
- const items=galleryItems[galleryCategory],item=items[galleryIndex],img=document.getElementById('galleryImage');
- img.alt=item.alt;
- img.style.opacity='1';
- img.onerror=()=>{
-  galleryFailedSources.add(item.src);
-  const nextIndex=items.findIndex((candidate,index)=>!galleryFailedSources.has(candidate.src)&&index!==galleryIndex);
-  if(nextIndex>=0){galleryIndex=nextIndex;renderGallery();}
-  else{img.onerror=null;img.removeAttribute('src');img.alt='Gallery images could not be loaded. Please check the assets folder.';}
- };
- img.src=item.src;
- document.getElementById('galleryCaption').textContent=item.caption+' · Artistic impression';
- document.querySelectorAll('[data-gallery]').forEach(b=>b.classList.toggle('active',b.dataset.gallery===galleryCategory));
- document.getElementById('galleryDots').innerHTML=items.map((_,i)=>'<button class="gallery-dot '+(i===galleryIndex?'active':'')+'" aria-label="Show image '+(i+1)+'" data-dot="'+i+'"></button>').join('');
- document.querySelectorAll('[data-dot]').forEach(b=>b.addEventListener('click',()=>{galleryIndex=Number(b.dataset.dot);renderGallery()}));
-}
-document.addEventListener('click',event=>{
- const tab=event.target.closest('[data-gallery]');
- if(tab){event.preventDefault();galleryCategory=tab.dataset.gallery;galleryIndex=0;galleryFailedSources.clear();renderGallery();return;}
- if(event.target.closest('#galleryPrev')){event.preventDefault();galleryIndex=(galleryIndex+galleryItems[galleryCategory].length-1)%galleryItems[galleryCategory].length;renderGallery();return;}
- if(event.target.closest('#galleryNext')){event.preventDefault();galleryIndex=(galleryIndex+1)%galleryItems[galleryCategory].length;renderGallery();return;}
- const dot=event.target.closest('[data-dot]');
- if(dot&&dot.closest('#galleryDots')){event.preventDefault();galleryIndex=Number(dot.dataset.dot);renderGallery();}
-},true);
-renderGallery();
+const galleryItems={
+ exterior:[
+   {src:'assets/Render.jpg',alt:'Purva Silversky exterior image 1',caption:'Exterior · Project view 1'},
+  {src:'assets/Render1.jpg',alt:'Purva Silversky exterior image 2',caption:'Exterior · Project view 2'},
+  {src:'assets/Render2.jpg',alt:'Purva Silversky exterior image 3',caption:'Exterior · Project view 3'},
+  {src:'assets/Render3.jpg',alt:'Purva Silversky exterior image 4',caption:'Exterior · Project view 4'},
+  {src:'assets/Render4.jpg',alt:'Purva Silversky exterior image 5',caption:'Exterior · Project view 5'},
+  {src:'assets/Render5.jpg',alt:'Purva Silversky exterior image 6',caption:'Exterior · Project view 6'},
+  {src:'assets/Render6.jpg',alt:'Purva Silversky exterior image 7',caption:'Exterior · Project view 7'},
+  {src:'assets/Render7.jpg',alt:'Purva Silversky exterior image 8',caption:'Exterior · Project view 8'},
+  {src:'assets/Render8.jpg',alt:'Purva Silversky exterior image 9',caption:'Exterior · Project view 9'},
+  {src:'assets/Render9.jpg',alt:'Purva Silversky exterior image 10',caption:'Exterior · Project view 10'},
+  {src:'assets/Render10.jpg',alt:'Purva Silversky exterior image 11',caption:'Exterior · Project view 11'},
+  {src:'assets/Render11.jpg',alt:'Purva Silversky exterior image 12',caption:'Exterior · Project view 12'}
+ ],
+ interior:[
+   {src:'assets/Interior.jpg',alt:'Purva Silversky interior image 1',caption:'Interior · Interior view 1'},
+  {src:'assets/Interior1.jpg',alt:'Purva Silversky interior image 2',caption:'Interior · Interior view 2'},
+  {src:'assets/Interior2.jpg',alt:'Purva Silversky interior image 3',caption:'Interior · Interior view 3'},
+  {src:'assets/Interior3.jpg',alt:'Purva Silversky interior image 4',caption:'Interior · Interior view 4'},
+  {src:'assets/Interior4.jpg',alt:'Purva Silversky interior image 5',caption:'Interior · Interior view 5'}
+ ]
+};
+(function initGallery(){
+ const image=document.getElementById('galleryImage');
+ const caption=document.getElementById('galleryCaption');
+ const dots=document.getElementById('galleryDots');
+ const tabs=[...document.querySelectorAll('.gallery-filters [data-gallery]')];
+ const previous=document.getElementById('galleryPrev');
+ const next=document.getElementById('galleryNext');
+ if(!image||!caption||!dots||!previous||!next||tabs.length===0)return;
+ let category='exterior';
+ let index=0;
+ function showImage(){
+  const items=galleryItems[category];
+  index=(index+items.length)%items.length;
+  const item=items[index];
+  image.onerror=null;
+  image.alt=item.alt;
+  image.src=item.src;
+  caption.textContent=item.caption+' · Artistic impression';
+  tabs.forEach(tab=>{
+   const active=tab.dataset.gallery===category;
+   tab.classList.toggle('active',active);
+   tab.setAttribute('aria-pressed',String(active));
+  });
+  dots.replaceChildren();
+  items.forEach((entry,i)=>{
+   const dot=document.createElement('button');
+   dot.type='button';
+   dot.className='gallery-dot'+(i===index?' active':'');
+   dot.setAttribute('aria-label','Show '+category+' image '+(i+1));
+   dot.setAttribute('aria-current',String(i===index));
+   dot.addEventListener('click',()=>{index=i;showImage();});
+   dots.appendChild(dot);
+  });
+ }
+ tabs.forEach(tab=>tab.addEventListener('click',()=>{
+  const requested=tab.dataset.gallery;
+  if(!galleryItems[requested])return;
+  category=requested;
+  index=0;
+  showImage();
+ }));
+ previous.addEventListener('click',()=>{index--;showImage();});
+ next.addEventListener('click',()=>{index++;showImage();});
+ image.addEventListener('error',()=>{
+  caption.textContent='Unable to load this gallery image: '+galleryItems[category][index].src;
+ });
+ showImage();
+})();
 const videoData={location:{id:'IrpAXsxVPiM',title:'Regional Connectivity. Global Access.',label:'PURVA SILVERSKY · LOCATION'},lifestyle:{id:'LUZokJTlg_I',title:'A Glimpse of Life at its Best!',label:'PURVA SILVERSKY · LIFESTYLE'},walkthrough:{id:'5Lakarp1NyY',title:'Explore the Residences',label:'PURVA SILVERSKY · WALKTHROUGH'},sustainability:{id:'H3xqCBVIRss',title:'Spaces Designed Around Wellbeing',label:'PURVA SILVERSKY · SUSTAINABILITY'}};let activeVideo='location';
 function selectVideo(key){activeVideo=key;const data=videoData[key],img=document.getElementById('videoThumbnail');img.src='https://img.youtube.com/vi/'+data.id+'/maxresdefault.jpg';img.onerror=function(){this.onerror=null;this.src='https://img.youtube.com/vi/'+data.id+'/hqdefault.jpg'};document.getElementById('videoTitle').textContent=data.title;document.getElementById('videoEyebrow').textContent=data.label;document.querySelectorAll('[data-video]').forEach(b=>{const active=b.dataset.video===key;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))})}
 document.querySelectorAll('[data-video]').forEach(b=>b.addEventListener('click',()=>selectVideo(b.dataset.video)));

@@ -91,7 +91,7 @@ function renderLocation(key){document.getElementById('locationList').innerHTML=l
  const show=(n)=>{
    current=(n+2)%2;
    const activeImage=images[current];
-   if(activeImage.dataset.src&&!activeImage.src){
+   if(activeImage.dataset.src&&!activeImage.hasAttribute('src')){
      activeImage.src=activeImage.dataset.src;
      activeImage.removeAttribute('data-src');
    }

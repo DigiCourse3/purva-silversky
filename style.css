@@ -465,3 +465,26 @@ main>section[id]{scroll-margin-top:88px}
   }
   .side-enquire { right: 0 !important; }
 }
+
+
+/* Mobile typography readability adjustment only. Desktop styles and layout remain unchanged. */
+@media(max-width:760px){
+  body{font-size:14px}
+  .overview-copy p:not(.eyebrow),
+  .features-copy p:not(.eyebrow),
+  .contact-copy>p:not(.eyebrow),
+  .location-heading p:not(.eyebrow),
+  .section-title>p:last-child{font-size:13px}
+  .faq-item summary{font-size:13px!important}
+  .faq-answer{font-size:12px!important;line-height:1.75!important}
+  .disclaimer,
+  .location-note,
+  .place-row,
+  .place-row span,
+  .contact-note p,
+  .contact-form-wrap>p,
+  .form-intro,
+  .form-privacy,
+  .plans-disclaimer,
+  .amenities-disclaimer{font-size:11px}
+}

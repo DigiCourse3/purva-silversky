@@ -516,3 +516,14 @@ body.gallery-lightbox-open{overflow:hidden}
  .gallery-lightbox-caption{bottom:16px;left:48px;right:48px;font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){.gallery-lightbox,.gallery-lightbox-stage img{transition:none!important}}
+
+
+/* Header spacing: move the combined brand mark left and keep clear space before navigation. */
+.header{justify-content:flex-start;column-gap:clamp(24px,3vw,48px)}
+.header .logo{flex:0 0 auto;margin-left:-18px;margin-right:0}
+.header nav{margin-left:auto;flex:0 1 auto}
+@media(max-width:760px){
+ .header{column-gap:12px}
+ .header .logo{margin-left:-8px}
+ .header nav{margin-left:0}
+}

@@ -20,10 +20,23 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEnquiry();clos
 document.querySelectorAll('#enquiryForm,#contactForm').forEach(form=>{
   form.addEventListener('submit',e=>{
     const mobile=form.querySelector('input[name="mobile"]');
-    if(mobile&&!/^[6-9][0-9]{9}$/.test(mobile.value.trim())){
+    if(!mobile)return;
+    const mobileNumber=mobile.value.replace(/\D/g,'');
+    mobile.value=mobileNumber;
+    const isValid=mobileNumber.length===10 && '6789'.includes(mobileNumber.charAt(0));
+    const status=form.querySelector('.form-status');
+    if(!isValid){
       e.preventDefault();
-      const status=form.querySelector('.form-status');
-      if(status){status.textContent='Please enter a valid 10-digit Indian mobile number.';status.className='form-status error';}
+      if(status){
+        status.textContent='Please enter a valid 10-digit Indian mobile number.';
+        status.className='form-status error';
+      }
+      mobile.focus();
+      return;
+    }
+    if(status){
+      status.textContent='';
+      status.className='form-status';
     }
   });
 });

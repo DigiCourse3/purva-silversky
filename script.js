@@ -64,51 +64,55 @@ const galleryItems={
  ]
 };
 (function initGallery(){
- const image=document.getElementById('galleryImage');
- const caption=document.getElementById('galleryCaption');
- const dots=document.getElementById('galleryDots');
- const tabs=[...document.querySelectorAll('.gallery-filters [data-gallery]')];
- const previous=document.getElementById('galleryPrev');
- const next=document.getElementById('galleryNext');
- if(!image||!caption||!dots||!previous||!next||tabs.length===0)return;
- let category='exterior';
- let index=0;
+ const image=document.getElementById('galleryImage'),caption=document.getElementById('galleryCaption'),dots=document.getElementById('galleryDots');
+ const tabs=[...document.querySelectorAll('.gallery-filters [data-gallery]')],previous=document.getElementById('galleryPrev'),next=document.getElementById('galleryNext');
+ const lightbox=document.getElementById('galleryLightbox'),lightboxImage=document.getElementById('galleryLightboxImage'),lightboxCaption=document.getElementById('galleryLightboxCaption');
+ const closeButton=document.getElementById('galleryLightboxClose'),zoomInButton=document.getElementById('galleryZoomIn'),zoomOutButton=document.getElementById('galleryZoomOut'),zoomLabel=document.getElementById('galleryZoomLevel');
+ const stage=document.getElementById('galleryLightboxStage'),lightboxPrev=document.getElementById('galleryLightboxPrev'),lightboxNext=document.getElementById('galleryLightboxNext');
+ if(!image||!caption||!dots||!previous||!next||!tabs.length||!lightbox)return;
+ let category='exterior',index=0,zoom=1,pinchDistance=0,pinchZoom=1,touchStart=null;
+ const minZoom=1,maxZoom=4,step=.25;
+ function setZoom(value){zoom=Math.max(minZoom,Math.min(maxZoom,value));lightboxImage.style.transform='scale('+zoom+')';zoomLabel.textContent=Math.round(zoom*100)+'%';zoomOutButton.disabled=zoom<=minZoom;zoomInButton.disabled=zoom>=maxZoom;}
+ function openCurrent(){const item=galleryItems[category][index];lightboxImage.src=item.src;lightboxImage.alt=item.alt;lightboxCaption.textContent=item.caption;setZoom(1);}
  function showImage(){
-  const items=galleryItems[category];
-  index=(index+items.length)%items.length;
-  const item=items[index];
-  image.onerror=null;
-  image.alt=item.alt;
-  image.src=item.src;
-  caption.textContent=item.caption;
-  tabs.forEach(tab=>{
-   const active=tab.dataset.gallery===category;
-   tab.classList.toggle('active',active);
-   tab.setAttribute('aria-pressed',String(active));
-  });
+  const items=galleryItems[category];index=(index+items.length)%items.length;const item=items[index];
+  image.onerror=null;image.alt=item.alt;image.src=item.src;caption.textContent=item.caption;
+  tabs.forEach(tab=>{const active=tab.dataset.gallery===category;tab.classList.toggle('active',active);tab.setAttribute('aria-pressed',String(active));});
   dots.replaceChildren();
-  items.forEach((entry,i)=>{
-   const dot=document.createElement('button');
-   dot.type='button';
-   dot.className='gallery-dot'+(i===index?' active':'');
-   dot.setAttribute('aria-label','Show '+category+' image '+(i+1));
-   dot.setAttribute('aria-current',String(i===index));
-   dot.addEventListener('click',()=>{index=i;showImage();});
-   dots.appendChild(dot);
-  });
+  items.forEach((entry,i)=>{const dot=document.createElement('button');dot.type='button';dot.className='gallery-dot'+(i===index?' active':'');dot.setAttribute('aria-label','Show '+category+' image '+(i+1));dot.setAttribute('aria-current',String(i===index));dot.addEventListener('click',()=>{index=i;showImage();});dots.appendChild(dot);});
+  if(lightbox.classList.contains('open'))openCurrent();
  }
- tabs.forEach(tab=>tab.addEventListener('click',()=>{
-  const requested=tab.dataset.gallery;
-  if(!galleryItems[requested])return;
-  category=requested;
-  index=0;
-  showImage();
- }));
- previous.addEventListener('click',()=>{index--;showImage();});
- next.addEventListener('click',()=>{index++;showImage();});
- image.addEventListener('error',()=>{
-  caption.textContent='Unable to load this gallery image: '+galleryItems[category][index].src;
+ function openLightbox(){openCurrent();lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false');document.body.classList.add('gallery-lightbox-open');closeButton.focus();}
+ function closeLightbox(){lightbox.classList.remove('open');lightbox.setAttribute('aria-hidden','true');document.body.classList.remove('gallery-lightbox-open');lightboxImage.src='';image.focus();}
+ function move(delta){index+=delta;showImage();}
+ tabs.forEach(tab=>tab.addEventListener('click',()=>{if(!galleryItems[tab.dataset.gallery])return;category=tab.dataset.gallery;index=0;showImage();}));
+ previous.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
+ image.style.cursor='zoom-in';image.tabIndex=0;image.setAttribute('role','button');image.setAttribute('aria-label','Open gallery image in full screen');
+ image.addEventListener('click',openLightbox);image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLightbox();}});
+ closeButton.addEventListener('click',closeLightbox);lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+ lightboxPrev.addEventListener('click',()=>move(-1));lightboxNext.addEventListener('click',()=>move(1));
+ zoomInButton.addEventListener('click',()=>setZoom(zoom+step));zoomOutButton.addEventListener('click',()=>setZoom(zoom-step));
+ document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('open'))return;
+  if(e.key==='Escape'){e.preventDefault();closeLightbox();}
+  else if(e.key==='+'||e.key==='='||e.code==='NumpadAdd'){e.preventDefault();setZoom(zoom+step);}
+  else if(e.key==='-'||e.key==='_'||e.code==='NumpadSubtract'){e.preventDefault();setZoom(zoom-step);}
+  else if(e.key==='ArrowRight'){e.preventDefault();move(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();move(-1);}
  });
+ stage.addEventListener('wheel',e=>{if(lightbox.classList.contains('open')){e.preventDefault();setZoom(zoom+(e.deltaY<0?step:-step));}},{passive:false});
+ stage.addEventListener('touchstart',e=>{
+  if(e.touches.length===2){pinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);pinchZoom=zoom;touchStart=null;}
+  else if(e.touches.length===1)touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+ },{passive:true});
+ stage.addEventListener('touchmove',e=>{
+  if(e.touches.length===2&&pinchDistance){e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);setZoom(pinchZoom*d/pinchDistance);}
+ },{passive:false});
+ stage.addEventListener('touchend',e=>{
+  if(e.touches.length===0&&touchStart&&zoom===1){const t=e.changedTouches[0],dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy))move(dx<0?1:-1);}
+  if(e.touches.length<2)pinchDistance=0;if(e.touches.length===0)touchStart=null;
+ },{passive:true});
+ image.addEventListener('error',()=>{caption.textContent='Unable to load this gallery image: '+galleryItems[category][index].src;});
  showImage();
 })();
 const videoData={location:{id:'IrpAXsxVPiM',title:'Regional Connectivity. Global Access.',label:'PURVA SILVERSKY · LOCATION'},lifestyle:{id:'LUZokJTlg_I',title:'A Glimpse of Life at its Best!',label:'PURVA SILVERSKY · LIFESTYLE'},walkthrough:{id:'5Lakarp1NyY',title:'Explore the Residences',label:'PURVA SILVERSKY · WALKTHROUGH'},sustainability:{id:'H3xqCBVIRss',title:'Spaces Designed Around Wellbeing',label:'PURVA SILVERSKY · SUSTAINABILITY'}};let activeVideo='location';

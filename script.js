@@ -72,7 +72,7 @@ const galleryItems={
  if(!image||!caption||!dots||!previous||!next||!tabs.length||!lightbox)return;
  let category='exterior',index=0,zoom=1,pinchDistance=0,pinchZoom=1,touchStart=null;
  const minZoom=1,maxZoom=4,step=.25;
- function setZoom(value){zoom=Math.max(minZoom,Math.min(maxZoom,value));lightboxImage.style.transform='scale('+zoom+')';zoomLabel.textContent=Math.round(zoom*100)+'%';zoomOutButton.disabled=zoom<=minZoom;zoomInButton.disabled=zoom>=maxZoom;}
+ function setZoom(value){zoom=Math.max(minZoom,Math.min(maxZoom,value));lightboxImage.style.setProperty('--gallery-zoom',zoom);zoomLabel.textContent=Math.round(zoom*100)+'%';zoomOutButton.disabled=zoom<=minZoom;zoomInButton.disabled=zoom>=maxZoom;}
  function openCurrent(){const item=galleryItems[category][index];lightboxImage.src=item.src;lightboxImage.alt=item.alt;lightboxCaption.textContent=item.caption;setZoom(1);}
  function showImage(){
   const items=galleryItems[category];index=(index+items.length)%items.length;const item=items[index];

@@ -1,0 +1,14 @@
+<?php
+// Copy this file to smtp-config.php in Hostinger public_html.
+// Enter the real mailbox password ONLY in Hostinger File Manager, never in GitHub.
+return [
+    'smtp_enabled' => true,
+    'host' => 'smtp.hostinger.com',
+    'port' => 465,
+    'encryption' => 'ssl',
+    'username' => 'info@purvankarasilversky.com',
+    'password' => 'ADD_YOUR_HOSTINGER_MAILBOX_PASSWORD_IN_HOSTINGER',
+    'from_email' => 'info@purvankarasilversky.com',
+    'recipient' => 'peyyalashiva90@gmail.com',
+    'cc' => 'kotamadhumohanreddy@gmail.com',
+];
